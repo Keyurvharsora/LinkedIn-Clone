@@ -11,7 +11,6 @@ import SocialOptions from './SocialOptions'
 import ReactTimeago from "react-timeago";
 import { deletePostAction } from '@/lib/serverActions'
 
-
 const Post = ({ post }: { post: IPostDocument }) => {
     const { user } = useUser();
     const fullName = post?.user?.firstName + " " + post?.user?.lastName;
@@ -33,7 +32,7 @@ const Post = ({ post }: { post: IPostDocument }) => {
                 <div>
                     {
                         loggedInUser && (
-                            <Button onClick={() => { const res = deletePostAction(post._id) }}
+                            <Button onClick={() => { const res = deletePostAction(post._id as string) }}
                                 size={'icon'} className='rounded-full' variant={'outline'}>
                                 <Trash2 />
                             </Button>
