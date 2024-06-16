@@ -13,8 +13,8 @@ import { useRef, useState } from "react"
 import { readFileAsDataUrl } from "@/lib/utils"
 import Image from "next/image"
 import Profile from "./shared/Profile"
-import { createPostAction } from "@/lib/serverActions"
-
+import { createPostAction, deletePostAction } from "@/lib/serverActions"
+import { toast } from "sonner"
 
 export function PostDialog({ setOpen, open, src }: { setOpen: any, open: boolean, src: string }) {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -56,7 +56,12 @@ export function PostDialog({ setOpen, open, src }: { setOpen: any, open: boolean
                     </DialogTitle>
                 </DialogHeader>
                 <form action={(formData) => {
-                    postActionHandler(formData);
+                  const promise = postActionHandler(formData);
+                  toast.promise(promise,{
+                    loading:'Creating post...',
+                    success:'Post created',
+                    error:'Failed to create post'
+                  })
                 }}>
                     <div className="flex flex-col items-center">
                         <Textarea
